@@ -21,8 +21,8 @@ cd backend
 mvnw.cmd spring-boot:run
 ```
 ### 2. Lancer le Frontend (Interface)
-
+```cmd
 cd cardgame_front\cardgame
 npm install
 npm start
-
+```
