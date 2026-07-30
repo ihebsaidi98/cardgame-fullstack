@@ -1,0 +1,74 @@
+<div class="container">
+  <header class="app-header">
+    <h1>♠️ Jeu de cartes ♥️</h1>
+    <p class="subtitle">Génération aléatoire d'une main de 10 cartes</p>
+  </header>
+
+  <!-- Indicateur de chargement -->
+  <div *ngIf="loading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Distribution en cours...</p>
+  </div>
+
+  <!-- Message d'erreur -->
+  <div *ngIf="error" class="error-card">
+    <span>⚠️</span> {{ error }}
+  </div>
+
+  <!-- Affichage des données -->
+  <ng-container *ngIf="handResponse && !loading">
+    <!-- Section : Paquet complet -->
+    <section class="card-section">
+      <div class="section-header">
+        <h2>📦 Paquet complet</h2>
+        <span class="badge">{{ handResponse.fullPack.length }} cartes</span>
+      </div>
+      <div class="card-grid full-pack-grid">
+        <div *ngFor="let card of handResponse.fullPack" class="card-item" 
+             [ngClass]="{'red-card': isRedSuit(card.suit)}">
+          <img [src]="getImagePath(card)" [alt]="card.displayName" 
+               title="{{ card.displayName }}" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <!-- Section : Main aléatoire -->
+    <section class="card-section highlight">
+      <div class="section-header">
+        <h2>🎲 Main aléatoire</h2>
+        <span class="badge random">{{ handResponse.randomHand.length }} cartes</span>
+      </div>
+      <div class="card-grid hand-grid">
+        <!-- index = i pour un meilleur affichage -->
+        <div *ngFor="let card of handResponse.randomHand; let i = index" class="card-item card-animate"
+             [ngClass]="{'red-card': isRedSuit(card.suit)}">
+          <img [src]="getImagePath(card)" [alt]="card.displayName" 
+               title="{{ card.displayName }}" loading="lazy">
+          <span class="card-order">{{ i + 1 }}</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section : Main triée -->
+    <section class="card-section">
+      <div class="section-header">
+        <h2>📊 Main triée</h2>
+        <span class="badge sorted">{{ handResponse.sortedHand.length }} cartes</span>
+      </div>
+      <div class="card-grid hand-grid">
+        <div *ngFor="let card of handResponse.sortedHand" class="card-item card-animate"
+             [ngClass]="{'red-card': isRedSuit(card.suit)}">
+          <img [src]="getImagePath(card)" [alt]="card.displayName" 
+               title="{{ card.displayName }}" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <!-- Bouton de rafraîchissement -->
+    <div class="action-bar">
+      <button class="btn-refresh" (click)="loadCards()">
+        🔄 Nouvelle distribution
+      </button>
+    </div>
+  </ng-container>
+</div>
