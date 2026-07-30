@@ -20,7 +20,7 @@
     <!-- Section : Paquet complet -->
     <section class="card-section">
       <div class="section-header">
-        <h2>📦 Paquet complet</h2>
+        <h2>Paquet complet</h2>
         <span class="badge">{{ handResponse.fullPack.length }} cartes</span>
       </div>
       <div class="card-grid full-pack-grid">
@@ -32,19 +32,18 @@
       </div>
     </section>
 
-    <!-- Section : Main aléatoire -->
+    <!-- Section : Main aléatoire (CORRIGÉE : supprimé le numéro d'index) -->
     <section class="card-section highlight">
       <div class="section-header">
-        <h2>🎲 Main aléatoire</h2>
+        <h2>Main aléatoire</h2>
         <span class="badge random">{{ handResponse.randomHand.length }} cartes</span>
       </div>
       <div class="card-grid hand-grid">
-        <!-- index = i pour un meilleur affichage -->
+        <!-- let i = index a été conservé mais la ligne d'affichage du span a été retirée -->
         <div *ngFor="let card of handResponse.randomHand; let i = index" class="card-item card-animate"
              [ngClass]="{'red-card': isRedSuit(card.suit)}">
           <img [src]="getImagePath(card)" [alt]="card.displayName" 
                title="{{ card.displayName }}" loading="lazy">
-          <span class="card-order">{{ i + 1 }}</span>
         </div>
       </div>
     </section>
@@ -52,7 +51,7 @@
     <!-- Section : Main triée -->
     <section class="card-section">
       <div class="section-header">
-        <h2>📊 Main triée</h2>
+        <h2>Main triée</h2>
         <span class="badge sorted">{{ handResponse.sortedHand.length }} cartes</span>
       </div>
       <div class="card-grid hand-grid">
@@ -67,7 +66,7 @@
     <!-- Bouton de rafraîchissement -->
     <div class="action-bar">
       <button class="btn-refresh" (click)="loadCards()">
-        🔄 Nouvelle distribution
+        Nouvelle distribution
       </button>
     </div>
   </ng-container>
